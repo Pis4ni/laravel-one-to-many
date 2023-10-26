@@ -2,8 +2,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,7 +30,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create',compact('types'));
     }
 
     /**
@@ -37,9 +40,9 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $data =  $this->validation($request->all()); 
+        $data = $request->validated();
         $project = new Project;
         $project->fill($data);
         $project->slug = Str::slug($project->title);
@@ -77,9 +80,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * *@return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(StoreProjectRequest $request, Project $project)
     {
-        $data =  $this->validation($request->all());
+        $data = $request->validated();
         $project->update($data);
         return redirect()->route('admin.projects.show', $project);
     }
@@ -94,34 +97,5 @@ class ProjectController extends Controller
     {
         $project->delete();
         return redirect()->route('admin.projects.index');
-    }
-
-    private function validation($data) 
-    {
-
-        $validator = Validator::make(
-            $data,
-            [
-                //   ... regole di validazione
-                'title' => 'required|string|max:20',
-                "description" => "required|string|min:50",
-            ],
-            [
-                //   ... messaggi di errore
-                // *titolo
-                'title.required' => 'Il titolo è obbligatorio',
-                'title.string' => 'Il titolo deve essere una stringa',
-                'title.max' => 'Il titolo deve massimo di 20 caratteri',
-
-                // *descrizione
-                'description.required' => 'La descrizione è obbligatoria',
-                'description.string' => 'La descrizione deve essere una stringa',
-                'description.min' => 'La descrizione deve essere lunga almeno 50 caratter',
-
-            ]
-          )->validate();
-
-          return $validator;
-
     }
 }

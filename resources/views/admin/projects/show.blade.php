@@ -17,6 +17,11 @@
         {{$project->slug}}
     </p>
     <p>
+        <strong>Type:</strong>
+        <br>
+        {{$project->type ? $project->type->label : 'No Type :\'( '}}
+    </p>
+    <p>
         <strong>Description:</strong>
         <br>
         {{$project->description}}
@@ -31,8 +36,7 @@
         <br>
         {{$project->updated_at}}
     </p>
-    {{$project->slug}}
-    {{$project->created_at}}
+
 </div>
 
 <div class="modal fade" tabindex="-1" id="modal-{{$project->id}}">
