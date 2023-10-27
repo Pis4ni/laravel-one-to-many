@@ -1,42 +1,56 @@
 @extends('layouts.app')
 @section('css')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 @endsection
 @section('content')
 <div class="container mt-5">
-    
     <h1 class="my-5">
         {{$project->title}}
     </h1>
-    <hr>
-    @include('partials._navbtn')
-    <hr>
-    <p>
-        <strong>Slug:</strong>
-        <br>
-        {{$project->slug}}
-    </p>
+    <div class="mb-5">
 
-    <p>
+        <hr>
+        @include('partials._navbtn')
+        <hr>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <p>
         <strong>Type:</strong>
         <br>
         {{$project->type?->label}}
-    </p>
-    <p>
-        <strong>Description:</strong>
-        <br>
-        {{$project->description}}
-    </p>
-    <p>
-        <strong>Created on:</strong>
-        <br>
-        {{$project->created_at}}
-    </p>
-    <p>
-        <strong>Last Update:</strong>
-        <br>
-        {{$project->updated_at}}
-    </p>
+        </div>
+        <div class="col-6">
+            <p>
+                <strong>Slug:</strong>
+                <br>
+                {{$project->slug}}
+            </p>
+        </div>
+        <div class="col-6">
+            <p>
+                <strong>Created on:</strong>
+                <br>
+                {{$project->created_at}}
+            </p>
+        </div>
+        <div class="col-6">
+            <p>
+                <strong>Last Update:</strong>
+                <br>
+                {{$project->updated_at}}
+            </p>
+        </div>
+        <div class="col-100">
+            <p>
+                <strong>Description:</strong>
+                <br>
+                {{$project->description}}
+            </p>
+        </div>
+    </div>
+
 
 </div>
 

@@ -27,22 +27,16 @@
     <form action="{{ route('admin.projects.store') }}" method="post">
         
         @csrf
-
+        {{-- * title --}}
         <div class="mb-3">
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title" name="title">
         </div>
-        {{-- <div class="mb-3">
-            <label for="description">Description</label>
-            <input type="text" class="form-control" id="description" name="description">
-        </div> --}}
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
-        </div>
 
-        <div class="mb-3">
 
+        {{-- * select type --}}
+        <div class="mb-3">
+    
             <label for="type_id" class="form-label">Type:</label>
             <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror">
                 <option value="">No Type</option>
@@ -58,6 +52,14 @@
                 @enderror
                 
         </div>
+
+        {{-- * description --}}
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+        </div>
+
+
                 <button type="submit" class="btn btn-outline-success">Save</button>
         
 
@@ -71,9 +73,3 @@
 
 </div>
 @endsection
-{{-- {{$project->title}}
-{{$project->slug}}
-{{$project->created_at}}
-{{$project->updated_at}}
-{{$project->slug}}
-{{$project->created_at}} --}}
