@@ -16,10 +16,11 @@
         <br>
         {{$project->slug}}
     </p>
+
     <p>
         <strong>Type:</strong>
         <br>
-        {{$project->type ? $project->type->label : 'No Type :\'( '}}
+        {{$project->type?->label}}
     </p>
     <p>
         <strong>Description:</strong>

@@ -31,7 +31,7 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create',compact('types'));
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -70,7 +70,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -80,10 +81,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * *@return \Illuminate\Http\Response
      */
-    public function update(StoreProjectRequest $request, Project $project)
+    public function update(Request $request, Project $project)
     {
-        $data = $request->validated();
-        $project->update($data);
+        $data = $request->all();
+        // dd($data);
+        $project->fill($data);
+        $project->slug = Str::slug($project->title);
+        $project->save();
         return redirect()->route('admin.projects.show', $project);
     }
 
